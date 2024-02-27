@@ -25,7 +25,7 @@ class AnimationPage extends StatelessWidget {
                           firstChild: CircleAvatar(radius: 16,),
                           secondChild: SizedBox(),
                           crossFadeState: CrossFadeState.showFirst,
-                          duration: Duration(seconds: 1))
+                          duration: Duration(seconds: 1)),
                     ],
                   )),
             ],
