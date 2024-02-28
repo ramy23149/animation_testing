@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ramy_app/pages/login_page.dart';
+import 'package:ramy_app/pages/animated_list.dart';
 
 void main() {
   runApp(const Scholarchat());
