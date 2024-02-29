@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ramy_app/pages/animated_list.dart';
+import 'package:ramy_app/pages/clipPath_view.dart';
 
 void main() {
   runApp(const Scholarchat());
@@ -12,6 +12,6 @@ class Scholarchat extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AnimationPage());
+      home: ClipPathView());
   }
 }
