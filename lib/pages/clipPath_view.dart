@@ -36,7 +36,6 @@ class _ClipPathBodyState extends State<ClipPathBody>
   late ColorModel cruntColor;
   late ColorModel prevColor;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -47,7 +46,6 @@ class _ClipPathBodyState extends State<ClipPathBody>
     );
     cruntColor = colors.first;
     prevColor = colors.last;
-
   }
 
   @override
@@ -70,8 +68,8 @@ class _ClipPathBodyState extends State<ClipPathBody>
               animation: animationController,
               builder: (context, _) {
                 return ClipPath(
-                  clipper:
-                      CustomPath(animationController.value,cruntColor.alignment),
+                  clipper: CustomPath(
+                      animationController.value, cruntColor.alignment),
                   child: Container(
                     color: cruntColor.color,
                     height: MediaQuery.of(context).size.height * .6,
@@ -96,12 +94,10 @@ class _ClipPathBodyState extends State<ClipPathBody>
                       onTap: () {
                         cruntColor = colors[index];
                         animationController.forward(from: 0).whenComplete(() {
-                            prevColor = cruntColor;
-                          
-                        setState(() {});
-                          
+                          prevColor = cruntColor;
+
+                          setState(() {});
                         });
-                      
                       },
                       child: GridViewItem(colorModel: colors[index]));
                 }),
@@ -132,18 +128,17 @@ class CustomPath extends CustomClipper<Path> {
     Path path = Path();
 
     if (alignment == Alignment.centerLeft) {
-      buildPath(path, size, Offset(0.0, size.height/2));
+      buildPath(path, size, Offset(0.0, size.height / 2));
     } else if (alignment == Alignment.centerRight) {
-      buildPath(path, size,Offset(size.width, size.height/2));
+      buildPath(path, size, Offset(size.width, size.height / 2));
     } else if (alignment == Alignment.topCenter) {
-      buildPath(path, size, Offset(size.width/2,0));
+      buildPath(path, size, Offset(size.width / 2, 0));
     } else if (alignment == Alignment.bottomCenter) {
-      buildPath(
-          path, size, Offset(size.width/2,size.height));
+      buildPath(path, size, Offset(size.width / 2, size.height));
     } else if (alignment == Alignment.topLeft) {
       buildPath(path, size, const Offset(0, 0));
     } else if (alignment == Alignment.bottomRight) {
-      buildPath(path, size, Offset(size.height,size.width));
+      buildPath(path, size, Offset(size.height, size.width));
     } else if (alignment == Alignment.center) {
       buildPath(path, size, Offset(size.width / 2, size.height / 2));
     } else if (alignment == Alignment.topRight) {
@@ -156,7 +151,9 @@ class CustomPath extends CustomClipper<Path> {
   void buildPath(Path path, Size size, Offset offset) {
     path.addOval(
         Rect.fromCircle(center: offset, radius: size.height * 2 * value));
+
   }
+
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ramy_app/pages/clipPath_view.dart';
+import 'package:ramy_app/pages/animated_contanier.dart';
+
 
 void main() {
   runApp(const Scholarchat());
@@ -12,6 +13,6 @@ class Scholarchat extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ClipPathView());
+      home:AnimatedContaner());
   }
 }
