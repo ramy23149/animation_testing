@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class AnimatedContaner extends StatefulWidget {
@@ -9,42 +7,60 @@ class AnimatedContaner extends StatefulWidget {
   State<AnimatedContaner> createState() => _AnimatedContanerState();
 }
 
-class _AnimatedContanerState extends State<AnimatedContaner> {
-  double value = 0;
-  double _angle = 0;
-  bool isVisable = true;
+class _AnimatedContanerState extends State<AnimatedContaner>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<Size> animation;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    controller.repeat(reverse: true, period: const Duration(seconds: 2));
+    animation = Tween<Size>(
+            begin: const Size(100, 150), end: const Size(100, 250))
+        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceIn));
+    // controller.addListener(() =>
+    //   setState(() {})
+    // ); kda bta3ml rebuild ll UI Kolo
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
+  double height = 150;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: _angle),
-              duration: const Duration(seconds: 2),
-              builder: (ctx,double angle, __) {
-              return  Transform.rotate(
-                  angle: angle,
-                  child: Container(
-                    height: 200,
-                    width: 300,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                    ),
-                  ),
-                );
-              }),
-          Slider(
-            value: value,
-            onChanged: (double val) => setState(() {
-              value = val;
-              _angle = val;
-            }),
-            min: 0,
-            max: pi * 2,
-            divisions: 4,
-            label: value.round().toString(),
-          )
+          AnimatedBuilder(//rebuild llgoza dh bs
+            animation: controller,
+            builder: (context, child) {
+            return  FlutterLogo(
+                size: animation.value.height,
+              );
+            },
+          ),
+          ListTile(
+              trailing: const Icon(Icons.arrow_right_alt_outlined),
+              tileColor: Colors.green,
+              title: const Text('Forward'),
+              onTap: () => controller.forward()),
+          ListTile(
+              leading: const Icon(Icons.arrow_back),
+              tileColor: Colors.red,
+              title: const Text('Forward'),
+              onTap: () => controller.reverse())
         ],
       ),
     );
