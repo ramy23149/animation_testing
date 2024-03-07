@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AnimatedContaner extends StatefulWidget {
@@ -8,28 +10,41 @@ class AnimatedContaner extends StatefulWidget {
 }
 
 class _AnimatedContanerState extends State<AnimatedContaner> {
-
   double value = 0;
-  
+  double _angle = 0;
   bool isVisable = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child:
-             Transform.rotate(
-            angle: 22/7*value,
-              child: Image.asset('assets/images/car.jpeg'))),
-            Slider(
-              value: value,
-               onChanged: (double val)=>setState(() =>value=val),
-               min: 0,
-               max: 3,
-               divisions: 100,
-               label: value.round().toString(),
-               )
+          TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: _angle),
+              duration: const Duration(seconds: 2),
+              builder: (ctx,double angle, __) {
+              return  Transform.rotate(
+                  angle: angle,
+                  child: Container(
+                    height: 200,
+                    width: 300,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                    ),
+                  ),
+                );
+              }),
+          Slider(
+            value: value,
+            onChanged: (double val) => setState(() {
+              value = val;
+              _angle = val;
+            }),
+            min: 0,
+            max: pi * 2,
+            divisions: 4,
+            label: value.round().toString(),
+          )
         ],
       ),
     );
